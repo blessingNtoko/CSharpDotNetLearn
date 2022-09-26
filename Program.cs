@@ -9,20 +9,75 @@ namespace CSharpDotNetLearn
         // Entry Point Method
         static void Main(string[] args)
         {
-            // Start Here
-            string appName = "Number Guesser";
-            string appVersion = "1.0.0";
-            string appAuthor = "Blessing Ntoko";
+            GetAppInfo();
+            GreetUser();
 
-            // Change text colour
-            Console.ForegroundColor = ConsoleColor.Green;
+            while (true)
+            {
+                // Create a new Random object
+                Random random = new();
 
-            // Wite out app info
-            Console.WriteLine("{0}: Version {1} by {2}", appName, appVersion, appAuthor);
+                int correctNumber = random.Next(1, 10);
 
-            // Reset Text Colour
-            Console.ResetColor();
+                // Init guess var
+                int guess = 0;
 
+                // Ask user for number
+                Console.WriteLine("Guess a number between 1 and 10");
+
+                // While guess is not correct
+                while (guess != correctNumber)
+                {
+                    // Get users input
+                    string? input = Console.ReadLine();
+
+                    // Make sure input is a number
+                    if (!int.TryParse(input, out guess))
+                    {
+                        PrintMessage(ConsoleColor.Red, "Please enter an actual number");
+                        // Keep going
+                        continue;
+
+                    }
+
+                    // Cast to int and put in guess
+                    guess = Convert.ToInt32(input);
+
+                    // Match guess to correct number
+                    if (guess != correctNumber)
+                    {
+                        PrintMessage(ConsoleColor.Red, "Your guess is incorrect, try again");
+                    }
+                }
+
+                // Output success message
+                PrintMessage(ConsoleColor.Yellow, "You got it right!! Well Done");
+
+                // Ask to play again
+                Console.WriteLine("Play Again? [Y or N]");
+
+                // Get Answer
+                string answer = Console.ReadLine().ToUpper();
+
+                if (answer == "Y")
+                {
+                    continue;
+                }
+                else if (answer == "N")
+                {
+                    return;
+                }
+                else
+                {
+                    return;
+                }
+
+            }
+
+        }
+
+        static void GreetUser()
+        {
             // Ask users name
             Console.WriteLine("What is your name: ");
 
@@ -30,78 +85,28 @@ namespace CSharpDotNetLearn
             string? inputName = Console.ReadLine();
 
             Console.WriteLine($"Hello {inputName}, let's play a game...");
+        }
 
-            while(true)
-            {
+        static void GetAppInfo()
+        {
+            // Start Here
+            string appName = "Number Guesser";
+            string appVersion = "1.0.0";
+            string appAuthor = "Blessing Ntoko";
 
-            // Set correct number
-            // int correctNumber = 7;
+            PrintMessage(ConsoleColor.Green, $"{appName}: Version {appVersion} by {appAuthor}");
+        }
 
-            // Create a new Random object
-            Random random = new();
-
-            int correctNumber = random.Next(1, 10);
-
-            // Init guess var
-            int guess = 0;
-
-            // Ask user for number
-            Console.WriteLine("Guess a number between 1 and 10");
-
-            // While guess is not correct
-            while(guess != correctNumber)
-            {
-                // Get users input
-                string? input = Console.ReadLine();
-
-                // Make sure input is a number
-                if (!int.TryParse(input, out guess))
-                {
-                    // Change text colour
-                    Console.ForegroundColor = ConsoleColor.Red;
-
-                    // Tell user it is not a number
-                    Console.WriteLine("The value you have entered is not a number, please enter a number");
-
-                    // Reset Text Colour
-                    Console.ResetColor();
-
-                    // Keep going
-                    continue;
-
-                }
-
-                // Cast to int and put in guess
-                guess = Convert.ToInt32(input);
-
-                // Match guess to correct number
-                if (guess != correctNumber)
-                {
-                    // Change text colour
-                    Console.ForegroundColor = ConsoleColor.Red;
-
-                    // Tell user it was the wrong number
-                    Console.WriteLine("Your guess is incorrect, try again");
-
-                    // Reset Text Colour
-                    Console.ResetColor();
-
-                }
-            }
-
-            // Output success message
-
+        static void PrintMessage(ConsoleColor color, string message)
+        {
             // Change text colour
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = color;
 
-            // Tell user they won
-            Console.WriteLine("You got it right!! Well Done");
+            // Message to print
+            Console.WriteLine(message);
 
             // Reset Text Colour
             Console.ResetColor();
-
-            }
-
         }
     }
 }
