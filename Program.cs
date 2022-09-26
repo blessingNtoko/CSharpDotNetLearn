@@ -31,8 +31,16 @@ namespace CSharpDotNetLearn
 
             Console.WriteLine($"Hello {inputName}, let's play a game...");
 
+            while(true)
+            {
+
             // Set correct number
-            int correctNumber = 7;
+            // int correctNumber = 7;
+
+            // Create a new Random object
+            Random random = new();
+
+            int correctNumber = random.Next(1, 10);
 
             // Init guess var
             int guess = 0;
@@ -45,6 +53,23 @@ namespace CSharpDotNetLearn
             {
                 // Get users input
                 string? input = Console.ReadLine();
+
+                // Make sure input is a number
+                if (!int.TryParse(input, out guess))
+                {
+                    // Change text colour
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+                    // Tell user it is not a number
+                    Console.WriteLine("The value you have entered is not a number, please enter a number");
+
+                    // Reset Text Colour
+                    Console.ResetColor();
+
+                    // Keep going
+                    continue;
+
+                }
 
                 // Cast to int and put in guess
                 guess = Convert.ToInt32(input);
@@ -74,6 +99,8 @@ namespace CSharpDotNetLearn
 
             // Reset Text Colour
             Console.ResetColor();
+
+            }
 
         }
     }
